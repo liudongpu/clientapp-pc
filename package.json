@@ -1,0 +1,24 @@
+{
+  "name": "clientapp-pc",
+  "version": "1.0.0",
+  "description": "client",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liudongpu/clientapp-pc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liudongpu/clientapp-pc/issues"
+  },
+  "homepage": "https://github.com/liudongpu/clientapp-pc#readme",
+  "devDependencies": {
+    "electron": "^6.0.12"
+  }
+}
