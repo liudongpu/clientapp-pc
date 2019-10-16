@@ -17,6 +17,8 @@ function createWindow () {
   // 加载index.html文件
   win.loadURL('http://localhost:3000/')
 
+  
+
   // 打开开发者工具
   win.webContents.openDevTools()
 
