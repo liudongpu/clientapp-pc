@@ -6,13 +6,15 @@
   "private": true,
   "scripts": {
     "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liudongpu/clientapp-pc.git"
   },
-  "author": "",
+  "author": "liudongpu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/liudongpu/clientapp-pc/issues"
@@ -21,5 +23,11 @@
   "devDependencies": {
     "electron": "^6.0.12",
     "electron-builder": "^21.2.0"
+  },
+  "build": {
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   }
 }
