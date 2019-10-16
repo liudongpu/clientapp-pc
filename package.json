@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/liudongpu/clientapp-pc#readme",
   "devDependencies": {
-    "electron": "^6.0.12"
+    "electron": "^6.0.12",
+    "electron-builder": "^21.2.0"
   }
 }
