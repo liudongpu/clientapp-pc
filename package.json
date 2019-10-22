@@ -1,6 +1,6 @@
 {
   "name": "clientapp-pc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "client",
   "main": "main.js",
   "private": true,
@@ -21,9 +21,14 @@
     "url": "https://github.com/liudongpu/clientapp-pc/issues"
   },
   "homepage": "https://github.com/liudongpu/clientapp-pc#readme",
+  "dependencies": {
+    "electron-log": "^3.0.8",
+    "electron-updater": "^4.1.2"
+  },
   "devDependencies": {
     "electron": "^6.0.12",
     "electron-builder": "^21.2.0"
+    
   },
   "build": {
     "appId": "com.uhutu.clientapp-pc",
