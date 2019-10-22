@@ -26,7 +26,7 @@
     "electron-builder": "^21.2.0"
   },
   "build": {
-    "appId": "your.id",
+    "appId": "com.uhutu.clientapp-pc",
     "mac": {
       "category": "your.app.category.type"
     }
