@@ -1,64 +1,24 @@
-import { app, BrowserWindow, screen } from 'electron';
-import * as path from 'path';
-import * as url from 'url';
-
-//const { autoUpdater } = require("electron-updater")
-import {autoUpdater} from "electron-updater";
-
-import * as logger from "electron-log";
-
-autoUpdater.logger = logger
-//autoUpdater.logger.transports.file.level = "debug"
-
-autoUpdater.setFeedURL("https://icomeclientapp.oss-cn-beijing.aliyuncs.com/alpha/");
-autoUpdater.checkForUpdatesAndNotify()
+import { app} from 'electron';
+import {GuideStart} from './guide/start';
+import { SupportConfig } from './support/config';
 
 
-let win, flagAlpha;
-const args = process.argv.slice(1);
-flagAlpha = args.some(val => val === '--alpha');
 
-function createWindow() {
+let guideStart:GuideStart=new GuideStart();
 
-  //const electronScreen = screen;
-  //const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
-  // Create the browser window.
-  win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      //nodeIntegration: true,
-    },
-  });
 
-  if (flagAlpha) {
-    
-    win.loadURL('https://icomestatics.oss-cn-beijing.aliyuncs.com/developer/demo2/v1.html');
-  } else {
-    win.loadURL('https://icomestatics.oss-cn-beijing.aliyuncs.com/developer/demo2/v2.html');
-  }
 
-  if (flagAlpha) {
-    win.webContents.openDevTools();
-  }
+//这里初始化整个项目的配置信息
+SupportConfig.getInstance().initArgs(process.argv);
 
-  // Emitted when the window is closed.
-  win.on('closed', () => {
-    // Dereference the window object, usually you would store window
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    win = null;
-  });
-
-}
 
 try {
 
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', createWindow);
+  app.on('ready', guideStart.appReady);
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {
@@ -69,13 +29,7 @@ try {
     }
   });
 
-  app.on('activate', () => {
-    // On OS X it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (win === null) {
-      createWindow();
-    }
-  });
+  app.on('activate', guideStart.appActivate);
 
 } catch (e) {
   // Catch Error

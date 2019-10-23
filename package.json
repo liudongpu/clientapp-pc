@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "npm run dev",
-    "dev":"tsc && electron . --alpha",
+    "dev": "tsc && electron . --env=alpha",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -27,6 +27,7 @@
     "electron-updater": "^4.1.2"
   },
   "devDependencies": {
+    "axios": "^0.19.0",
     "electron": "^6.0.12",
     "electron-builder": "^21.2.0",
     "typescript": "3.5.3"
