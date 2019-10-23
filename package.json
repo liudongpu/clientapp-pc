@@ -2,10 +2,11 @@
   "name": "clientapp-pc",
   "version": "1.0.1",
   "description": "client",
-  "main": "main.js",
+  "main": "dist/out-tsc/main.js",
   "private": true,
   "scripts": {
-    "start": "electron .",
+    "start": "npm run dev",
+    "dev":"tsc && electron . --alpha",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -27,8 +28,8 @@
   },
   "devDependencies": {
     "electron": "^6.0.12",
-    "electron-builder": "^21.2.0"
-    
+    "electron-builder": "^21.2.0",
+    "typescript": "3.5.3"
   },
   "build": {
     "appId": "com.uhutu.clientapp-pc",

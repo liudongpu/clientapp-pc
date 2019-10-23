@@ -27,7 +27,8 @@ function createWindow () {
   // 加载index.html文件
   win.loadURL('https://icomestatics.oss-cn-beijing.aliyuncs.com/developer/demo2/v2.html')
 
-  
+  const { dialog } = require('electron')
+console.log(dialog.showErrorBox("a","bbb"))
 
   // 打开开发者工具
  // win.webContents.openDevTools()
