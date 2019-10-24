@@ -1,6 +1,7 @@
 import { BrowserWindow, dialog, app } from 'electron';
 import { SupportConfig } from '../support/config';
 import { HelperCommon } from '../helper/common';
+import { LogicUpgrade } from '../logic/upgrade';
 
 
 
@@ -27,7 +28,10 @@ export class GuideStart {
 
 
 
-    SupportConfig.getInstance().requestAppConfig().then((response) => {
+    SupportConfig.getInstance().requestAppConfig().then(() => {
+
+      LogicUpgrade.update();
+
 
 
       let oAppConfig = SupportConfig.getInstance().upAppConfig();

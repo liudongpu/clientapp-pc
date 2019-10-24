@@ -23,15 +23,31 @@ export interface ISystemListConfig {
 
 export interface IAppIncConfig {
 
+    /**
+     * 窗口配置项
+     */
     browerConfig: BrowserWindowConstructorOptions
+    /**
+     * 请求的url
+     */
     requestUrl: string
+    /**
+     * 是否打开调试工具
+     */
     flagDevtool: boolean
+
+    /**
+     * 升级地址
+     */
+    upgradeUrl: string
 
 
 }
 
-
-const currentList: ISystemListConfig = {
+/**
+ * 系统信息配置预设
+ */
+const currentSystemList: ISystemListConfig = {
 
     alpha: {
         apiUrl: ''
@@ -54,7 +70,8 @@ let oAppConfig: IAppIncConfig = {
 
     browerConfig: { width: 800, height: 600 },
     requestUrl: "http://localhost:3000",
-    flagDevtool: true
+    flagDevtool: true,
+    upgradeUrl: "http://icomeclientapp.oss-cn-beijing.aliyuncs.com/clientapp/alpha/"
 
 }
 
@@ -62,8 +79,15 @@ let oAppConfig: IAppIncConfig = {
 
 let tempConfig: ISystemIncConfig;
 
+/**
+ * 当前环境变量 注意 这个地方不能修改 在gulp中会替换这行的内容 如果本地调试，请在package.json中使用--env的启动模式
+ */
 var currentEnv = "";
 
+
+/**
+ * 配置类
+ */
 export class SupportConfig {
 
 
@@ -75,16 +99,23 @@ export class SupportConfig {
 
 
 
-
+    /**
+     * 命令行启动时的参数模式
+     */
     private envArg = "--env=";
 
 
 
-
+    /**
+     * 初始化应用的参数配置
+     * @param aArgs 
+     */
     initArgs(aArgs: string[]) {
 
 
-
+        /**
+         * 判断如果当前环境标记为空时，则尝试从命令行参数获取
+         */
         if (!currentEnv) {
             let args = aArgs.slice(1);
             args.forEach(fItem => {
@@ -95,16 +126,22 @@ export class SupportConfig {
             });
         }
 
-        if (!tempConfig && currentList[currentEnv]) {
-            tempConfig = currentList[currentEnv];
+        /**
+         * 这里是为了容错，如果配置失败则自动加载生产的配置项
+         */
+        if (!tempConfig && currentSystemList[currentEnv]) {
+            tempConfig = currentSystemList[currentEnv];
         } else {
-            tempConfig = currentList.release;
+            tempConfig = currentSystemList.release;
             HelperCommon.logDebug('init default system config ' + currentEnv);
         };
 
     }
 
 
+    /**
+     * 获取应用的配置项
+     */
     upAppConfig(): IAppIncConfig {
         return oAppConfig;
     }
@@ -112,7 +149,7 @@ export class SupportConfig {
 
 
     /**
-     * 获取配置项
+     * 获取系统配置项
      */
     upSystemConfig(): ISystemIncConfig {
         return tempConfig;
@@ -121,14 +158,14 @@ export class SupportConfig {
 
 
 
-
+    /**
+     * 请求网络的配置
+     */
     requestAppConfig(): Promise<IAppIncConfig> {
 
 
         if (this.upSystemConfig().apiUrl) {
             return axios.default.get(this.upSystemConfig().apiUrl).then(res => { oAppConfig = Object.assign(oAppConfig, res.data); return oAppConfig })
-
-
         }
         else {
             return new Promise((res) => { res(oAppConfig) });
