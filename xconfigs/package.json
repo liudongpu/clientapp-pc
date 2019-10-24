@@ -1,8 +1,11 @@
 
 {
-    "appId": "com.example.app",
+    "appId": "com.uhutu.clientapp",
     "nsis":{
         "artifactName":"${productName}-Setup-${version}.${ext}"
+    },
+    "directories":{
+        "output":"dist/clientapp/"
     },
     "files":["dist/out-tsc/**/*"]
 }

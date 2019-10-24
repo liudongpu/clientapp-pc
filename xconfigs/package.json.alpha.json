@@ -1,4 +1,7 @@
 
 {
-    "appId": "com.base.app"
+    "appId": "com.base.app",
+    "directories":{
+        "output":"dist/clientapp/alpha/"
+    }
 }
