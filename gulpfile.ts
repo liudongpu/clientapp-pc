@@ -1,4 +1,5 @@
-import { series, src } from 'gulp';
+import { series, src, dest } from 'gulp';
+
 import * as fs from "fs";
 import * as path from "path";
 import * as child_process from "child_process";
@@ -15,33 +16,64 @@ let oConfig = {
 
     pathGulpConfig: "dist/gule-configs/",
     fileSourceConfig: "xconfigs/builds/electron-builder.json",
-    extConfig: ".json"
+    extConfig: ".json",
+    envName: "",
+    distTsc: "dist/out-tsc/"
 }
 
 
 
 class GulpProcess {
 
-    static execTask(sEnvName: string) {
-
-        let oPack = JSON.parse(fs.readFileSync(oConfig.fileSourceConfig).toString());
-        let oExtend = JSON.parse(fs.readFileSync(oConfig.fileSourceConfig + "." + sEnvName + oConfig.extConfig).toString());
-
-        let oBuild = Object.assign(oPack, oExtend);
-
-        let sConfigFile = path.join(oConfig.pathGulpConfig, sEnvName + oConfig.extConfig);
+    static execTask() {
 
 
+        this.updateAppConfig();
 
-        this.mkdirsSync(oConfig.pathGulpConfig);
-
-        fs.writeFileSync(sConfigFile, JSON.stringify(oBuild, null, "  "));
-
-
-        child_process.execSync("electron-builder  --config " + sConfigFile, { stdio: "inherit" });
+        this.buildConfig();
+        //child_process.execSync("electron-builder  --config " + sConfigFile, { stdio: "inherit" });
 
 
     }
+
+    /**
+     * 更新配置文件 这里替换var currentEnv = "";为打包的环境的值
+     */
+    static updateAppConfig() {
+
+        let sFileConfig = path.join(oConfig.distTsc, "support", "config.js");
+
+        let sConfigContent = fs.readFileSync(sFileConfig).toString();
+
+        sConfigContent = sConfigContent.replace(/var\s*currentEnv\s*=\s*\"\"\s*;/, "var currentEnv = \"" + oConfig.envName + "\";");
+        fs.writeFileSync(sFileConfig, sConfigContent);
+
+    }
+
+
+
+    /**
+     * 执行electron-builder流程
+     */
+    static buildConfig() {
+        let oPack = JSON.parse(fs.readFileSync(oConfig.fileSourceConfig).toString());
+
+
+        oPack.appId = oPack.appId + "." + oConfig.envName;
+        oPack.directories.output = oPack.directories.output + oConfig.envName + "/";
+
+        let sConfigFile = path.join(oConfig.pathGulpConfig, oConfig.envName + oConfig.extConfig);
+
+        this.mkdirsSync(oConfig.pathGulpConfig);
+
+        fs.writeFileSync(sConfigFile, JSON.stringify(oPack, null, "  "));
+
+        //child_process.execSync("electron-builder  --config " + sConfigFile, { stdio: "inherit" });
+    }
+
+
+
+
 
 
     // 递归创建目录 同步方法
@@ -61,7 +93,9 @@ class GulpProcess {
 
 
 function init_alpha(cb) {
-    GulpProcess.execTask("alpha");
+
+    oConfig.envName = "alpha";
+    GulpProcess.execTask();
     cb();
 }
 
@@ -77,6 +111,6 @@ function build(cb) {
 
 
 
-exports.package_alpha = series(build,init_alpha);
+exports.package_alpha = series(build, init_alpha);
 exports.build = build;
 exports.default = series(build);

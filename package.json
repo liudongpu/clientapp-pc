@@ -9,7 +9,7 @@
     "dev": "gulp build && electron . --env=alpha",
     "pack": "electron-builder --dir",
     "dist": "electron-builder  --config xconfigs/alpha.json",
-    "pack:alpha":"gulp package_alpha",
+    "pack:alpha": "gulp package_alpha",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package-ci": "electron-builder --publish always"
   },
