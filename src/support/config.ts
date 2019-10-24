@@ -84,7 +84,7 @@ export class SupportConfig {
         args.forEach(fItem => {
             if (fItem.startsWith(this.envArg)) {
                 this.currentEnv = fItem.substr(this.envArg.length);
-                HelperCommon.logDebug(this.currentEnv);
+                HelperCommon.logDebug('current system config '+this.currentEnv);
             }
         });
 
@@ -92,7 +92,7 @@ export class SupportConfig {
             tempConfig = currentList[this.currentEnv];
         } else {
             tempConfig = currentList.release;
-            console.log('error init config type ' + this.currentEnv);
+            HelperCommon.logDebug('init default system config '+this.currentEnv);
         };
 
     }

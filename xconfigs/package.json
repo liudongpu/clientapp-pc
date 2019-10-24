@@ -1,0 +1,8 @@
+
+{
+    "appId": "com.example.app",
+    "nsis":{
+        "artifactName":"${productName}-Setup-${version}.${ext}"
+    },
+    "files":["dist/out-tsc/**/*"]
+}

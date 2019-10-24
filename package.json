@@ -8,7 +8,8 @@
     "start": "npm run dev",
     "dev": "tsc && electron . --env=alpha",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "dist": "electron-builder  --config xconfigs/alpha.json",
+    "pack:alpha":"gulp package_alpha",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package-ci": "electron-builder --publish always"
   },
@@ -24,12 +25,14 @@
   "homepage": "https://github.com/liudongpu/clientapp-pc#readme",
   "dependencies": {
     "electron-log": "^3.0.8",
-    "electron-updater": "^4.1.2"
+    "electron-updater": "^4.1.2",
+    "axios": "^0.19.0"
   },
   "devDependencies": {
-    "axios": "^0.19.0",
     "electron": "^6.0.12",
     "electron-builder": "^21.2.0",
+    "gulp": "^4.0.2",
+    "ts-node": "^8.4.1",
     "typescript": "3.5.3"
   },
   "build": {
