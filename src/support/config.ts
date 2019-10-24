@@ -1,6 +1,8 @@
 import { HelperCommon } from "../helper/common";
 import { BrowserWindowConstructorOptions, app } from 'electron';
 import * as axios from "axios";
+
+
 /**
  * 配置信息
  */
@@ -19,11 +21,11 @@ export interface ISystemListConfig {
     [keys: string]: ISystemIncConfig
 }
 
-export interface IAppIncConfig{
+export interface IAppIncConfig {
 
-    browerConfig:BrowserWindowConstructorOptions
-    requestUrl:string
-    flagDevtool:boolean
+    browerConfig: BrowserWindowConstructorOptions
+    requestUrl: string
+    flagDevtool: boolean
 
 
 }
@@ -32,7 +34,7 @@ export interface IAppIncConfig{
 const currentList: ISystemListConfig = {
 
     alpha: {
-        apiUrl: 'http://www.icomecloud.com'
+        apiUrl: ''
     },
     beta: {
         apiUrl: 'http://www.icomecloud.com'
@@ -48,17 +50,20 @@ const currentList: ISystemListConfig = {
 
 
 
-let oAppConfig:IAppIncConfig={
+let oAppConfig: IAppIncConfig = {
 
-    browerConfig:{width:800,height:600},
-    requestUrl:"https://icomestatics.oss-cn-beijing.aliyuncs.com/developer/demo2/v1.html",
-    flagDevtool:false
-    
+    browerConfig: { width: 800, height: 600 },
+    requestUrl: "http://localhost:3000",
+    flagDevtool: true
+
 }
 
 
 
 let tempConfig: ISystemIncConfig;
+
+var currentEnv = "";
+
 export class SupportConfig {
 
 
@@ -73,32 +78,34 @@ export class SupportConfig {
 
     private envArg = "--env=";
 
-    private currentEnv = "";
+
 
 
     initArgs(aArgs: string[]) {
 
 
-        HelperCommon.logDebug(app.getVersion());
-        let args = aArgs.slice(1);
-        args.forEach(fItem => {
-            if (fItem.startsWith(this.envArg)) {
-                this.currentEnv = fItem.substr(this.envArg.length);
-                HelperCommon.logDebug('current system config '+this.currentEnv);
-            }
-        });
 
-        if (!tempConfig && currentList[this.currentEnv]) {
-            tempConfig = currentList[this.currentEnv];
+        if (!currentEnv) {
+            let args = aArgs.slice(1);
+            args.forEach(fItem => {
+                if (fItem.startsWith(this.envArg)) {
+                    currentEnv = fItem.substr(this.envArg.length);
+                    HelperCommon.logDebug('current system config ' + currentEnv);
+                }
+            });
+        }
+
+        if (!tempConfig && currentList[currentEnv]) {
+            tempConfig = currentList[currentEnv];
         } else {
             tempConfig = currentList.release;
-            HelperCommon.logDebug('init default system config '+this.currentEnv);
+            HelperCommon.logDebug('init default system config ' + currentEnv);
         };
 
     }
 
 
-    upAppConfig():IAppIncConfig{
+    upAppConfig(): IAppIncConfig {
         return oAppConfig;
     }
 
@@ -115,13 +122,19 @@ export class SupportConfig {
 
 
 
-    requestAppConfig() {
-
-        
-        return axios.default.get(this.upSystemConfig().apiUrl).then(res=>{return res})
+    requestAppConfig(): Promise<IAppIncConfig> {
 
 
-        
+        if (this.upSystemConfig().apiUrl) {
+            return axios.default.get(this.upSystemConfig().apiUrl).then(res => { oAppConfig = Object.assign(oAppConfig, res.data); return oAppConfig })
+
+
+        }
+        else {
+            return new Promise((res) => { res(oAppConfig) });
+        }
+
+
 
     }
 

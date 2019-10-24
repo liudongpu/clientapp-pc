@@ -1,5 +1,5 @@
 import { autoUpdater } from "electron-updater";
-import * as logger from "electron-log";
+import { HelperCommon } from "../helper/common";
 
 export class LogicUpgrade {
 
@@ -7,7 +7,7 @@ export class LogicUpgrade {
 
 
     static update() {
-        autoUpdater.logger = logger
+        autoUpdater.logger = HelperCommon.upLogger()
         //autoUpdater.logger.transports.file.level = "debug"
 
         autoUpdater.setFeedURL("https://icomeclientapp.oss-cn-beijing.aliyuncs.com/alpha/");

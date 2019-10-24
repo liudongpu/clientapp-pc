@@ -3,12 +3,6 @@ import {GuideStart} from './guide/start';
 import { SupportConfig } from './support/config';
 
 
-
-let guideStart:GuideStart=new GuideStart();
-
-
-
-
 //这里初始化整个项目的配置信息
 SupportConfig.getInstance().initArgs(process.argv);
 
@@ -18,7 +12,7 @@ try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', guideStart.appReady);
+  app.on('ready', GuideStart.getInstance().appReady);
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {
@@ -29,7 +23,7 @@ try {
     }
   });
 
-  app.on('activate', guideStart.appActivate);
+  app.on('activate', GuideStart.getInstance().appActivate);
 
 } catch (e) {
   // Catch Error

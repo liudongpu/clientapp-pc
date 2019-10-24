@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "npm run dev",
-    "dev": "tsc && electron . --env=alpha",
+    "dev": "gulp build && electron . --env=alpha",
     "pack": "electron-builder --dir",
     "dist": "electron-builder  --config xconfigs/alpha.json",
     "pack:alpha":"gulp package_alpha",

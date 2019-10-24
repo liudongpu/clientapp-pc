@@ -3,5 +3,6 @@
     "appId": "com.base.app",
     "directories":{
         "output":"dist/clientapp/alpha/"
-    }
+    },
+    "productName":"clientapp-alpha"
 }

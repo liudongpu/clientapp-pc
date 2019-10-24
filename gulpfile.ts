@@ -14,7 +14,7 @@ function clean(cb) {
 let oConfig = {
 
     pathGulpConfig: "dist/gule-configs/",
-    fileSourceConfig: "xconfigs/package.json",
+    fileSourceConfig: "xconfigs/builds/electron-builder.json",
     extConfig: ".json"
 }
 
@@ -78,5 +78,5 @@ function build(cb) {
 
 
 exports.package_alpha = series(build,init_alpha);
-
+exports.build = build;
 exports.default = series(build);

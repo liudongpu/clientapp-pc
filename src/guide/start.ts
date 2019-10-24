@@ -12,6 +12,12 @@ let win: any;
 export class GuideStart {
 
 
+  private static guideSupport = new GuideStart();
+
+  public static getInstance() {
+      return this.guideSupport;
+  }
+
 
 
   /**
@@ -59,7 +65,7 @@ export class GuideStart {
 
   appActivate() {
     if (win === null) {
-      this.appReady();
+      GuideStart.getInstance().appReady();
     }
   }
 
