@@ -38,7 +38,7 @@ class GulpProcess {
         fs.writeFileSync(sConfigFile, JSON.stringify(oBuild, null, "  "));
 
 
-        child_process.execSync("electron-builder  --dir dist/" + sEnvName + "/  --config " + sConfigFile, { stdio: "inherit" });
+        child_process.execSync("electron-builder  --config " + sConfigFile, { stdio: "inherit" });
 
 
     }
