@@ -1,5 +1,5 @@
 {
-    "requestMainUrl":"https://www.baidu.com",
+    "requestMainUrl":"http://icome-clientapp.beta.icome.work:380/",
     "flagDevtool":false
 }
 
