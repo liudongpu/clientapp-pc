@@ -170,7 +170,11 @@ export class SupportConfig {
 
 
         if (this.upSystemConfig().apiUrl) {
-            return axios.default.get(this.upSystemConfig().apiUrl).then(res => { oAppConfig = Object.assign(oAppConfig, res.data); return oAppConfig })
+            return axios.default.get(this.upSystemConfig().apiUrl).then(res => { 
+                
+                HelperCommon.logInfo(res.data);
+                
+                oAppConfig = Object.assign(oAppConfig, res.data); return oAppConfig })
         }
         else {
             return new Promise((res) => { res(oAppConfig) });
