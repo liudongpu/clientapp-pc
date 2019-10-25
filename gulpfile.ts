@@ -15,6 +15,7 @@ let oConfig = {
     envName: "",
     distTsc: "dist/out-tsc/",
     distClientApp:"dist/clientapp",
+    flagUploadOss:true,
     allowUpload:[".yml",".dmg",".blockmap",".exe",".zip"]
 }
 
@@ -81,6 +82,11 @@ class GulpProcess {
      * 这里将生成的文件传上oss
      */
     static uploadOss() {
+
+        if(!oConfig.flagUploadOss){
+            return;
+        }
+
         const OSS = require('ali-oss');
 
         if (!fs.existsSync(oConfig.ossKeyFile)) {
@@ -153,6 +159,16 @@ class GulpProcess {
 }
 
 
+function initAlphaWithNotUpload(cb) {
+
+    oConfig.envName = "alpha";
+    oConfig.flagUploadOss=false;
+    GulpProcess.execTask();
+    cb();
+}
+
+
+
 function initAlpha(cb) {
 
     oConfig.envName = "alpha";
@@ -194,9 +210,10 @@ function build(cb) {
 
 
 
-exports.package_alpha = series(build,initAlpha);
-exports.package_beta = series(build,initBeta);
-exports.package_preview = series(build,initPreview);
-exports.package_release = series(build,initRelease);
+exports.package_alpha = series(build,initAlphaWithNotUpload);
+exports.deploy_alpha = series(build,initAlpha);
+exports.deploy_beta = series(build,initBeta);
+exports.deploy_preview = series(build,initPreview);
+exports.deploy_release = series(build,initRelease);
 exports.build = build;
 exports.default = series(build);

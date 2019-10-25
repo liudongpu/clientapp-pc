@@ -54,16 +54,16 @@ export interface IAppIncConfig {
 const currentSystemList: ISystemListConfig = {
 
     alpha: {
-        apiUrl: ''
+        apiUrl: 'http://oss-clientapp.icomecloud.com/clientconfigs/appconfig.alpha.json'
     },
     beta: {
-        apiUrl: 'http://www.icomecloud.com'
+        apiUrl: 'http://oss-clientapp.icomecloud.com/clientconfigs/appconfig.beta.json'
     },
     preview: {
-        apiUrl: 'http://www.icomecloud.com'
+        apiUrl: 'http://oss-clientapp.icomecloud.com/clientconfigs/appconfig.preview.json'
     },
     release: {
-        apiUrl: 'http://www.icomecloud.com'
+        apiUrl: 'http://oss-clientapp.icomecloud.com/clientconfigs/appconfig.release.json'
     }
 
 };
@@ -75,8 +75,8 @@ let oAppConfig: IAppIncConfig = {
     browerWindowConfig: { width: 800, height: 600 },
     requestMainUrl: "http://localhost:3000",
     flagDevtool: true,
-    upgradeFeedUrl: "http://icomeclientapp.oss-cn-beijing.aliyuncs.com/clientapp/alpha/",
-    updateInfoUrl:"http://icomeclientapp.oss-cn-beijing.aliyuncs.com/web/upgrade/index.html"
+    upgradeFeedUrl: "http://oss-clientapp.icomecloud.com/clientapp/alpha/",
+    updateInfoUrl:"http://oss-clientapp.icomecloud.com/web/upgrade/index.html"
 
 }
 

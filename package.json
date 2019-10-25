@@ -7,11 +7,12 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "gulp build && electron . --env=alpha",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder  --config xconfigs/alpha.json",
-    "pack:alpha": "gulp package_alpha",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "package-ci": "electron-builder --publish always"
+    "pack:alpha":"gulp package_alpha",
+    "deploy:alpha": "gulp deploy_alpha",
+    "deploy:beta": "gulp deploy_beta",
+    "deploy:preview": "gulp deploy_preview",
+    "deploy:release": "gulp deploy_release",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
