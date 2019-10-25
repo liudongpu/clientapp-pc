@@ -44,7 +44,7 @@ export interface IAppIncConfig {
     /**
      * 更新信息地址
      */
-    updateInfoUrl:string
+    updateInfoUrl: string
 
 }
 
@@ -76,7 +76,7 @@ let oAppConfig: IAppIncConfig = {
     requestMainUrl: "http://localhost:3000",
     flagDevtool: true,
     upgradeFeedUrl: "https://oss-clientapp.icomecloud.com/clientapp/alpha/",
-    updateInfoUrl:"https://oss-clientapp.icomecloud.com/web/upgrade/index.html"
+    updateInfoUrl: "https://oss-clientapp.icomecloud.com/web/upgrade/index.html"
 
 }
 
@@ -170,11 +170,15 @@ export class SupportConfig {
 
 
         if (this.upSystemConfig().apiUrl) {
-            return axios.default.get(this.upSystemConfig().apiUrl).then(res => { 
-                
-                HelperCommon.logInfo(res.data);
-                
-                oAppConfig = Object.assign(oAppConfig, res.data); return oAppConfig })
+            return axios.default.get(this.upSystemConfig().apiUrl).then(res => {
+
+
+
+                oAppConfig = Object.assign(oAppConfig, res.data);
+                HelperCommon.logInfo(JSON.stringify(oAppConfig));
+
+                return oAppConfig
+            })
         }
         else {
             return new Promise((res) => { res(oAppConfig) });
