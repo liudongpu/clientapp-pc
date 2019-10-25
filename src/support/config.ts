@@ -26,21 +26,25 @@ export interface IAppIncConfig {
     /**
      * 窗口配置项
      */
-    browerConfig: BrowserWindowConstructorOptions
+    browerWindowConfig: BrowserWindowConstructorOptions
     /**
-     * 请求的url
+     * 主请求的url
      */
-    requestUrl: string
+    requestMainUrl: string
     /**
      * 是否打开调试工具
      */
     flagDevtool: boolean
 
     /**
-     * 升级地址
+     * 升级检测地址
      */
-    upgradeUrl: string
+    upgradeFeedUrl: string
 
+    /**
+     * 更新信息地址
+     */
+    updateInfoUrl:string
 
 }
 
@@ -68,10 +72,11 @@ const currentSystemList: ISystemListConfig = {
 
 let oAppConfig: IAppIncConfig = {
 
-    browerConfig: { width: 800, height: 600 },
-    requestUrl: "http://localhost:3000",
+    browerWindowConfig: { width: 800, height: 600 },
+    requestMainUrl: "http://localhost:3000",
     flagDevtool: true,
-    upgradeUrl: "http://icomeclientapp.oss-cn-beijing.aliyuncs.com/clientapp/alpha/"
+    upgradeFeedUrl: "http://icomeclientapp.oss-cn-beijing.aliyuncs.com/clientapp/alpha/",
+    updateInfoUrl:"http://icomeclientapp.oss-cn-beijing.aliyuncs.com/web/upgrade/index.html"
 
 }
 

@@ -6,7 +6,7 @@ import { LogicUpgrade } from '../logic/upgrade';
 
 
 
-let win: any;
+let win: BrowserWindow;
 
 
 
@@ -17,6 +17,11 @@ export class GuideStart {
 
   public static getInstance() {
       return this.guideSupport;
+  }
+
+
+  public upBaseWindow():BrowserWindow{
+    return win;
   }
 
 
@@ -36,11 +41,11 @@ export class GuideStart {
 
       let oAppConfig = SupportConfig.getInstance().upAppConfig();
 
-      win = new BrowserWindow(oAppConfig.browerConfig);
+      win = new BrowserWindow(oAppConfig.browerWindowConfig);
 
 
 
-      win.loadURL(oAppConfig.requestUrl);
+      win.loadURL(oAppConfig.requestMainUrl);
 
 
       if (oAppConfig.flagDevtool) {

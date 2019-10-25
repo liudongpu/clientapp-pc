@@ -2,46 +2,39 @@ import { autoUpdater } from "electron-updater";
 import { HelperCommon } from "../helper/common";
 import { SupportConfig } from "../support/config";
 import { dialog } from "electron";
+import { GuideStart } from "../guide/start";
 
 
 export class LogicUpgrade {
 
 
 
-
+    /**
+     * 更新检测代码
+     */
     static update() {
 
-        if (SupportConfig.getInstance().upAppConfig().upgradeUrl) {
+        if (SupportConfig.getInstance().upAppConfig().upgradeFeedUrl) {
 
             autoUpdater.logger = HelperCommon.upLogger()
             //autoUpdater.logger.transports.file.level = "debug"
 
-            autoUpdater.setFeedURL(SupportConfig.getInstance().upAppConfig().upgradeUrl);
+            autoUpdater.setFeedURL(SupportConfig.getInstance().upAppConfig().upgradeFeedUrl);
             //autoUpdater.checkForUpdatesAndNotify()
 
             autoUpdater.checkForUpdates().then(result => {
-                HelperCommon.logInfo(result);
+                //HelperCommon.logInfo(result);
             });
 
             autoUpdater.on('update-available', () => {
-                dialog.showMessageBox(null, {
-                    type: 'info',
-                    title: 'Found Updates',
-                    message: 'Found updates, do you want update now?',
-                    buttons: ['Sure', 'No']
-                }
-               
-              );
-              autoUpdater.downloadUpdate()
+                
+                GuideStart.getInstance().upBaseWindow().loadURL(SupportConfig.getInstance().upAppConfig().updateInfoUrl);
+                autoUpdater.downloadUpdate()
             });
-            
+
 
             autoUpdater.on('update-not-available', () => {
-                dialog.showMessageBox(null, {
-                    title: 'No Updates',
-                    message: 'Current version is up-to-date.'
-                })
-
+                HelperCommon.logDebug("skip upgrade beacuse update-not-available");
             })
 
             autoUpdater.on('update-downloaded', () => {
