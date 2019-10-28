@@ -82,7 +82,7 @@ let oAppConfig: IAppIncConfig = {
 
 
 
-let tempConfig: ISystemIncConfig;
+let oSystemConfig: ISystemIncConfig;
 
 /**
  * 当前环境变量 注意 这个地方不能修改 在gulp中会替换这行的内容 如果本地调试，请在package.json中使用--env的启动模式
@@ -126,7 +126,7 @@ export class SupportConfig {
             args.forEach(fItem => {
                 if (fItem.startsWith(this.envArg)) {
                     currentEnv = fItem.substr(this.envArg.length);
-                    HelperCommon.logDebug('current system config ' + currentEnv);
+                    HelperCommon.logDebug('SupportConfig.initArgs','current system config ' + currentEnv);
                 }
             });
         }
@@ -134,11 +134,11 @@ export class SupportConfig {
         /**
          * 这里是为了容错，如果配置失败则自动加载生产的配置项
          */
-        if (!tempConfig && currentSystemList[currentEnv]) {
-            tempConfig = currentSystemList[currentEnv];
+        if (!oSystemConfig && currentSystemList[currentEnv]) {
+            oSystemConfig = currentSystemList[currentEnv];
         } else {
-            tempConfig = currentSystemList.release;
-            HelperCommon.logDebug('init default system config ' + currentEnv);
+            oSystemConfig = currentSystemList.release;
+            HelperCommon.logDebug('SupportConfig.initArgs','init default system config ' + currentEnv);
         };
 
     }
@@ -157,7 +157,7 @@ export class SupportConfig {
      * 获取系统配置项
      */
     upSystemConfig(): ISystemIncConfig {
-        return tempConfig;
+        return oSystemConfig;
     }
 
 
@@ -169,15 +169,18 @@ export class SupportConfig {
     requestAppConfig(): Promise<IAppIncConfig> {
 
 
-        if (this.upSystemConfig().apiUrl) {
-            return axios.default.get(this.upSystemConfig().apiUrl).then(res => {
+        if (oSystemConfig.apiUrl) {
+
+            HelperCommon.logInfo("SupportConfig.requestAppConfig","begin request "+oSystemConfig.apiUrl);
+
+            return axios.default.get(oSystemConfig.apiUrl).then(res => {
 
 
 
                 oAppConfig = Object.assign(oAppConfig, res.data);
-                HelperCommon.logInfo(JSON.stringify(oAppConfig));
+                HelperCommon.logInfo("SupportConfig.requestAppConfig",JSON.stringify(oAppConfig));
 
-                return oAppConfig
+                return oAppConfig;
             })
         }
         else {

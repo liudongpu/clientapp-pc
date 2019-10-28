@@ -4,14 +4,14 @@ import * as logger from "electron-log";
 
 export class HelperCommon {
 
-    static logDebug(message: any) {
+    static logDebug(tag:string,message: any) {
          
-        logger.debug(message);
+        logger.debug(tag+":",message);
     }
 
-    static logInfo(message: any) {
+    static logInfo(tag:string,message: any) {
          
-        logger.info(message);
+        logger.info(tag+":",message);
     }
 
     static upLogger(){
