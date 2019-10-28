@@ -45,7 +45,7 @@ export class GuideStart {
 
 
 
-      win.loadURL(oAppConfig.requestMainUrl);
+      //win.loadURL(oAppConfig.requestMainUrl);
 
 
       if (oAppConfig.flagDevtool) {
