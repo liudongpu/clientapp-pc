@@ -1,6 +1,6 @@
 {
   "name": "clientapp-pc",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "client",
   "main": "dist/out-tsc/main.js",
   "private": true,

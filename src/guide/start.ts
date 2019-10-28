@@ -60,7 +60,9 @@ export class GuideStart {
         win = null;
       });
 
-    }).catch(() => {
+    }).catch((eMsg) => {
+
+      HelperCommon.logError("GuideStart.appReady",eMsg);
 
       dialog.showErrorBox("网络请求错误", "请求错误，请重新打开尝试");
 
