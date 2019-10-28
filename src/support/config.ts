@@ -42,6 +42,11 @@ export interface IAppIncConfig {
     upgradeFeedUrl: string
 
     /**
+     * 升级检测类型
+     */
+    upgradeModelType:"base"|"auto"
+
+    /**
      * 更新信息地址
      */
     updateInfoUrl: string
@@ -73,8 +78,9 @@ const currentSystemList: ISystemListConfig = {
 let oAppConfig: IAppIncConfig = {
 
     browerWindowConfig: { width: 800, height: 600 },
-    requestMainUrl: "http://localhost:3000",
+    requestMainUrl: "",
     flagDevtool: true,
+    upgradeModelType:"base",
     upgradeFeedUrl: "https://oss-clientapp.icomecloud.com/clientapp/alpha/",
     updateInfoUrl: "https://oss-clientapp.icomecloud.com/web/upgrade/index.html"
 

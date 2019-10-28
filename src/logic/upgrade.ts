@@ -14,36 +14,47 @@ export class LogicUpgrade {
      */
     static update() {
 
-        if (SupportConfig.getInstance().upAppConfig().upgradeFeedUrl) {
+        let oAppConfig = SupportConfig.getInstance().upAppConfig();
+
+        if (oAppConfig.upgradeFeedUrl) {
 
             autoUpdater.logger = HelperCommon.upLogger()
             //autoUpdater.logger.transports.file.level = "debug"
 
-            autoUpdater.setFeedURL(SupportConfig.getInstance().upAppConfig().upgradeFeedUrl);
+            autoUpdater.setFeedURL(oAppConfig.upgradeFeedUrl);
             //autoUpdater.checkForUpdatesAndNotify()
 
-            autoUpdater.checkForUpdates().then(result => {
-                //HelperCommon.logInfo(result);
-            });
-
-            autoUpdater.on('update-available', () => {
-                
-                GuideStart.getInstance().upBaseWindow().loadURL(SupportConfig.getInstance().upAppConfig().updateInfoUrl);
-                autoUpdater.downloadUpdate()
-            });
 
 
-            autoUpdater.on('update-not-available', () => {
-                HelperCommon.logDebug("LogicUpgrade.update","skip upgrade beacuse update-not-available");
-            })
+            if (oAppConfig.upgradeModelType === "auto") {
+                GuideStart.getInstance().upBaseWindow().loadURL(oAppConfig.updateInfoUrl);
+                autoUpdater.checkForUpdatesAndNotify()
+            }
+            else {
+                autoUpdater.checkForUpdates().then(result => {
+                    //HelperCommon.logInfo(result);
+                });
 
-            autoUpdater.on('update-downloaded', () => {
-                setImmediate(() => autoUpdater.quitAndInstall())
-            })
+                autoUpdater.on('update-available', () => {
+
+                    GuideStart.getInstance().upBaseWindow().loadURL(oAppConfig.updateInfoUrl);
+                    autoUpdater.downloadUpdate()
+                });
+
+
+                autoUpdater.on('update-not-available', () => {
+                    HelperCommon.logDebug("LogicUpgrade.update", "skip upgrade beacuse update-not-available");
+                })
+
+                autoUpdater.on('update-downloaded', () => {
+                    setImmediate(() => autoUpdater.quitAndInstall())
+                })
+            }
+
 
 
         } else {
-            HelperCommon.logDebug("LogicUpgrade.update","skip upgrade beacuse upgradeUrl is null");
+            HelperCommon.logDebug("LogicUpgrade.update", "skip upgrade beacuse upgradeUrl is null");
         }
 
 
