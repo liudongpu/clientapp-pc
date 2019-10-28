@@ -34,7 +34,7 @@ export class LogicUpgrade {
 
                 
 
-                
+                /*
                 autoUpdater.on('update-available', () => {
 
                     GuideStart.getInstance().upBaseWindow().loadURL(oAppConfig.updateInfoUrl);
@@ -72,7 +72,11 @@ export class LogicUpgrade {
                     HelperCommon.logDebug("LogicUpgrade.update", 'Update downloaded');
                   });
 
-                  autoUpdater.checkForUpdatesAndNotify();
+                */
+
+                  autoUpdater.checkForUpdatesAndNotify().then((result)=>{
+                    HelperCommon.logDebug("LogicUpgrade.update.result", result);
+                  });
 
 
             }
