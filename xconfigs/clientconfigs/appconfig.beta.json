@@ -1,0 +1,9 @@
+{
+    "requestMainUrl":"http://icome-clientapp.beta.icome.work:380/",
+    "flagDevtool":false,
+    "upgradeFeedUrl": "http://icomeclientapp.oss-cn-beijing.aliyuncs.com/clientapp/beta/",
+    "updateInfoUrl": "https://oss-clientapp.icomecloud.com/web/upgrade/index.html",
+    "upgradeModelType":"auto"
+}
+
+
