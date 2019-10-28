@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "gulp build && electron . --env=alpha",
-    "pack:alpha":"gulp package_alpha",
+    "pack:alpha": "gulp package_alpha",
     "deploy:alpha": "gulp deploy_alpha",
     "deploy:beta": "gulp deploy_beta",
     "deploy:preview": "gulp deploy_preview",

@@ -34,7 +34,7 @@ export class LogicUpgrade {
 
 
             autoUpdater.on('update-not-available', () => {
-                HelperCommon.logDebug("skip upgrade beacuse update-not-available");
+                HelperCommon.logDebug("LogicUpgrade.update","skip upgrade beacuse update-not-available");
             })
 
             autoUpdater.on('update-downloaded', () => {
@@ -43,7 +43,7 @@ export class LogicUpgrade {
 
 
         } else {
-            HelperCommon.logDebug("skip upgrade beacuse upgradeUrl is null");
+            HelperCommon.logDebug("LogicUpgrade.update","skip upgrade beacuse upgradeUrl is null");
         }
 
 
