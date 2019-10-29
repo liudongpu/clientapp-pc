@@ -1,7 +1,7 @@
 import { autoUpdater } from "electron-updater";
 import { HelperCommon } from "../helper/common";
-import { SupportConfig } from "../support/config";
-import { dialog } from "electron";
+import { SupportConfig, IAppIncConfig } from "../support/config";
+import { dialog, app } from "electron";
 import { GuideStart } from "../guide/start";
 
 
@@ -12,14 +12,51 @@ export class LogicUpgrade {
     /**
      * 更新检测代码
      */
-    static update() {
+    static update():Promise<IAppIncConfig> {
 
         let oAppConfig = SupportConfig.getInstance().upAppConfig();
+
+        autoUpdater.logger = HelperCommon.upLogger();
+
+        HelperCommon.logDebug("LogicUpgrade.feedurl", autoUpdater.getFeedURL());
+
+        if(oAppConfig.updateInfoUrl){
+            autoUpdater.setFeedURL(oAppConfig.upgradeFeedUrl);
+        }
+
+        if (oAppConfig.upgradeModelType === "auto") {
+
+            return autoUpdater.checkForUpdatesAndNotify().then((result)=>{
+                HelperCommon.logDebug("LogicUpgrade.update.result", result);
+                if(result.versionInfo&&result.versionInfo.version!==app.getVersion()&&!oAppConfig.browerLoadUrl){
+                    
+                    oAppConfig.browerLoadUrl=oAppConfig.updateInfoUrl;
+                }
+                else{
+                     
+                    oAppConfig.browerLoadUrl=oAppConfig.requestMainUrl;
+                }
+                return oAppConfig;
+              });
+        }
+        else{
+
+
+
+            return new Promise(res=>{if(!oAppConfig.browerLoadUrl){oAppConfig.browerLoadUrl=oAppConfig.requestMainUrl};res(oAppConfig)});
+        }
+
+
+
+
+
 
         if (oAppConfig.upgradeFeedUrl) {
 
             autoUpdater.logger = HelperCommon.upLogger()
             //autoUpdater.logger.transports.file.level = "debug"
+
+            HelperCommon.logDebug("LogicUpgrade.feedurl", autoUpdater.getFeedURL());
 
             autoUpdater.setFeedURL(oAppConfig.upgradeFeedUrl);
             //autoUpdater.checkForUpdatesAndNotify()
@@ -76,6 +113,12 @@ export class LogicUpgrade {
 
                   autoUpdater.checkForUpdatesAndNotify().then((result)=>{
                     HelperCommon.logDebug("LogicUpgrade.update.result", result);
+                    if(result.versionInfo&&result.versionInfo.version!==app.getVersion()){
+                        GuideStart.getInstance().upBaseWindow().loadURL(oAppConfig.updateInfoUrl);
+                    }
+                    else{
+                        GuideStart.getInstance().upBaseWindow().loadURL(oAppConfig.requestMainUrl);
+                    }
                   });
 
 

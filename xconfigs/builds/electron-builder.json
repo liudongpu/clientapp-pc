@@ -11,12 +11,9 @@
     "publish":{
         "provider":"generic",
         "url":"http://icomeclientapp.oss-cn-beijing.aliyuncs.com/clientapp/",
-        "useMultipleRangeRequest":false
+        "useMultipleRangeRequest":true
     },
     "win": {
-        "certificateFile":"icome.pfx",
         
-        "publisherName":"icome",
-        "verifyUpdateCodeSignature":false
     }
 }

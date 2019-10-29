@@ -27,6 +27,12 @@ export interface IAppIncConfig {
      * 窗口配置项
      */
     browerWindowConfig: BrowserWindowConstructorOptions
+
+    /**
+     * 当前主请求的url
+     */
+    browerLoadUrl:string
+
     /**
      * 主请求的url
      */
@@ -79,6 +85,7 @@ let oAppConfig: IAppIncConfig = {
 
     browerWindowConfig: { width: 800, height: 600 },
     requestMainUrl: "",
+    browerLoadUrl:"",
     flagDevtool: true,
     upgradeModelType:"base",
     upgradeFeedUrl: "https://oss-clientapp.icomecloud.com/clientapp/alpha/",

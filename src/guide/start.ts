@@ -35,17 +35,14 @@ export class GuideStart {
 
     SupportConfig.getInstance().requestAppConfig().then(() => {
 
-      LogicUpgrade.update();
+      LogicUpgrade.update().then((oAppConfig)=>{
+
+
+        win = new BrowserWindow(oAppConfig.browerWindowConfig);
 
 
 
-      let oAppConfig = SupportConfig.getInstance().upAppConfig();
-
-      win = new BrowserWindow(oAppConfig.browerWindowConfig);
-
-
-
-      //win.loadURL(oAppConfig.requestMainUrl);
+      win.loadURL(oAppConfig.browerLoadUrl);
 
 
       if (oAppConfig.flagDevtool) {
@@ -59,6 +56,14 @@ export class GuideStart {
         // when you should delete the corresponding element.
         win = null;
       });
+
+      });
+
+
+
+       
+
+      
 
     }).catch((eMsg) => {
 
