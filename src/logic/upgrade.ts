@@ -9,6 +9,21 @@ export class LogicUpgrade {
 
 
 
+    private static processResult(result,oAppConfig){
+
+        HelperCommon.logDebug("LogicUpgrade.update.result", result);
+                if(result.versionInfo&&result.versionInfo.version!==app.getVersion()&&!oAppConfig.browerLoadUrl){
+                    
+                    oAppConfig.browerLoadUrl=oAppConfig.updateInfoUrl;
+                }
+                else{
+                     
+                    oAppConfig.browerLoadUrl=oAppConfig.requestMainUrl;
+                }
+                return oAppConfig;
+    }
+
+
     /**
      * 更新检测代码
      */
@@ -26,18 +41,31 @@ export class LogicUpgrade {
 
         if (oAppConfig.upgradeModelType === "auto") {
 
-            return autoUpdater.checkForUpdatesAndNotify().then((result)=>{
-                HelperCommon.logDebug("LogicUpgrade.update.result", result);
-                if(result.versionInfo&&result.versionInfo.version!==app.getVersion()&&!oAppConfig.browerLoadUrl){
-                    
-                    oAppConfig.browerLoadUrl=oAppConfig.updateInfoUrl;
-                }
-                else{
-                     
-                    oAppConfig.browerLoadUrl=oAppConfig.requestMainUrl;
-                }
-                return oAppConfig;
-              });
+            return autoUpdater.checkForUpdatesAndNotify().then((result)=>LogicUpgrade.processResult(result,oAppConfig));
+        }
+        else if (oAppConfig.upgradeModelType === "base") {
+
+
+           
+
+            autoUpdater.on('update-available', () => {
+
+                //oAppConfig.browerLoadUrl=oAppConfig.updateInfoUrl;
+                autoUpdater.downloadUpdate()
+            });
+
+
+            autoUpdater.on('update-not-available', () => {
+                //oAppConfig.browerLoadUrl=oAppConfig.requestMainUrl;
+                HelperCommon.logDebug("LogicUpgrade.update.base", "skip upgrade beacuse update-not-available");
+            })
+
+            autoUpdater.on('update-downloaded', () => {
+                setImmediate(() => autoUpdater.quitAndInstall())
+            })
+
+            return autoUpdater.checkForUpdates().then(result =>LogicUpgrade.processResult(result,oAppConfig));
+
         }
         else{
 
