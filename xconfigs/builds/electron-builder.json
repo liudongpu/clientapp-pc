@@ -7,5 +7,13 @@
     "directories":{
         "output":"dist/clientapp/"
     },
-    "files":["dist/out-tsc/**/*"]
+    "files":["dist/out-tsc/**/*"],
+    "publish":{
+        "provider":"generic",
+        "url":"http://icomeclientapp.oss-cn-beijing.aliyuncs.com/clientapp/",
+        "useMultipleRangeRequest":true
+    },
+    "win": {
+        
+    }
 }

@@ -61,6 +61,7 @@ class GulpProcess {
 
         oPack.appId = oPack.appId + "." + oConfig.envName;
         oPack.directories.output = oPack.directories.output + oConfig.envName + "/";
+        oPack.publish.url=oPack.publish.url+ oConfig.envName + "/";
 
         //这里将目录路径设置上
         oConfig.distClientApp=oPack.directories.output;

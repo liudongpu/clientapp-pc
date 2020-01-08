@@ -35,17 +35,14 @@ export class GuideStart {
 
     SupportConfig.getInstance().requestAppConfig().then(() => {
 
-      LogicUpgrade.update();
+      LogicUpgrade.update().then((oAppConfig)=>{
+
+
+        win = new BrowserWindow(oAppConfig.browerWindowConfig);
 
 
 
-      let oAppConfig = SupportConfig.getInstance().upAppConfig();
-
-      win = new BrowserWindow(oAppConfig.browerWindowConfig);
-
-
-
-      win.loadURL(oAppConfig.requestMainUrl);
+      win.loadURL(oAppConfig.browerLoadUrl);
 
 
       if (oAppConfig.flagDevtool) {
@@ -60,7 +57,17 @@ export class GuideStart {
         win = null;
       });
 
-    }).catch(() => {
+      });
+
+
+
+       
+
+      
+
+    }).catch((eMsg) => {
+
+      HelperCommon.logError("GuideStart.appReady",eMsg);
 
       dialog.showErrorBox("网络请求错误", "请求错误，请重新打开尝试");
 

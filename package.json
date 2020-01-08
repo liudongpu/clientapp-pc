@@ -1,6 +1,6 @@
 {
   "name": "clientapp-pc",
-  "version": "0.0.5",
+  "version": "0.0.41",
   "description": "client",
   "main": "dist/out-tsc/main.js",
   "private": true,
@@ -12,7 +12,8 @@
     "deploy:beta": "gulp deploy_beta",
     "deploy:preview": "gulp deploy_preview",
     "deploy:release": "gulp deploy_release",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "codesign":"electron-builder create-self-signed-cert  --publisher icome "
   },
   "repository": {
     "type": "git",

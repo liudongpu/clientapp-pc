@@ -14,6 +14,11 @@ export class HelperCommon {
         logger.info(tag+":",message);
     }
 
+    static logError(tag:string,message: any) {
+         
+        logger.error(tag+":",message);
+    }
+
     static upLogger(){
         return logger;
     }
