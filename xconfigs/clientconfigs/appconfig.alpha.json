@@ -1,5 +1,5 @@
 {
-    "requestMainUrl":"http://icome-clientapp.beta.icome.work:380/",
+    "requestMainUrl":"http://icomepc.enn.cn/",
     "flagDevtool":false,
     "upgradeFeedUrl": "http://icomeclientapp.oss-cn-beijing.aliyuncs.com/clientapp/alpha/",
     "updateInfoUrl": "https://oss-clientapp.icomecloud.com/web/upgrade/index.html"
