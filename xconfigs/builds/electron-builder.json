@@ -19,6 +19,7 @@
         "icon": "xconfigs/images/1024.png"
     },
     "mac":{
-        "icon": "xconfigs/images/1024.png"
+        "icon": "xconfigs/images/1024.png",
+        "artifactName":"icome-test-Setup-${version}.${ext}"
     }
 }
