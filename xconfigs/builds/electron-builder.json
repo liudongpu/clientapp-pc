@@ -16,6 +16,9 @@
         "useMultipleRangeRequest":true
     },
     "win": {
-        "icon": "xconfigs/images/256.png"
+        "icon": "xconfigs/images/1024.png"
+    },
+    "mac":{
+        "icon": "xconfigs/images/1024.png"
     }
 }
