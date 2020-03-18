@@ -1,8 +1,10 @@
 
 {
+    "productName":"iCome抢鲜测试版",
     "appId": "com.uhutu.clientapp",
     "nsis":{
-        "artifactName":"${productName}-Setup-${version}.${ext}"
+       
+        "artifactName":"icome-test-Setup-${version}.${ext}"
     },
     "directories":{
         "output":"dist/clientapp/"
@@ -14,6 +16,6 @@
         "useMultipleRangeRequest":true
     },
     "win": {
-        
+        "icon": "xconfigs/images/256.png"
     }
 }

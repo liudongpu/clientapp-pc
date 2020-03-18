@@ -1,0 +1,8 @@
+{
+    "requestMainUrl":"http://icomepc.enn.cn/",
+    "flagDevtool":false,
+    "upgradeFeedUrl": "http://icomeclientapp.oss-cn-beijing.aliyuncs.com/clientapp/preview/",
+    "updateInfoUrl": "https://oss-clientapp.icomecloud.com/web/upgrade/index.html"
+}
+
+

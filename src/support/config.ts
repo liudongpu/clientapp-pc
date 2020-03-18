@@ -83,7 +83,7 @@ const currentSystemList: ISystemListConfig = {
 
 let oAppConfig: IAppIncConfig = {
 
-    browerWindowConfig: { width: 800, height: 600 },
+    browerWindowConfig: { width: 1080, height: 800 },
     requestMainUrl: "",
     browerLoadUrl:"",
     flagDevtool: true,
